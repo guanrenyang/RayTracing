@@ -18,9 +18,10 @@ public:
         : vertex(vertex), height(height), radius(radius), mat(mat) {}
 
     bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
-        auto a = r.direction().y() * r.direction().y() - r.direction().x() * r.direction().x() - r.direction().z() * r.direction().z();
-        auto b = 2.0 * (r.direction().y() * (r.origin().y() - vertex.y()) - r.direction().x() * (r.origin().x() - vertex.y()) - r.direction().z() * (r.origin().z() - vertex.z()));
-        auto c = (r.origin().y() - vertex.y()) * (r.origin().y() - vertex.y()) - (r.origin().x() - vertex.x()) * (r.origin().x() - vertex.x()) - (r.origin().z() - vertex.z()) * (r.origin().z() - vertex.z());
+        double tan_theta = radius / height;
+        auto a = tan_theta * tan_theta * r.direction().y() * r.direction().y() - r.direction().x() * r.direction().x() - r.direction().z() * r.direction().z();
+        auto b = 2.0 * (r.direction().y() * (r.origin().y() - vertex.y()) * tan_theta * tan_theta - r.direction().x() * (r.origin().x() - vertex.x()) - r.direction().z() * (r.origin().z() - vertex.z()));
+        auto c = tan_theta * tan_theta * (r.origin().y() - vertex.y()) * (r.origin().y() - vertex.y()) - (r.origin().x() - vertex.x()) * (r.origin().x() - vertex.x()) - (r.origin().z() - vertex.z()) * (r.origin().z() - vertex.z());
 
         auto discriminant = b * b - 4 * a * c;
         if (discriminant < 0) {

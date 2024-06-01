@@ -32,14 +32,13 @@ void cornell_box() {
 
     world.add(box(point3(130, 0, 65), point3(295, 165, 230), white));
     world.add(box(point3(265, 0, 295), point3(430, 330, 460), metal_yello));
-    // initialize a cylinder above the box in the front
     world.add(make_cylinder(point3(378, 50, 0), 50, 100, green));
-
+    // world.add(make_cone(point3(378, 250, 0), 100, 50, green));
     camera cam;
 
     cam.aspect_ratio      = 1.0;
     cam.image_width       = 600;
-    cam.samples_per_pixel = 500;
+    cam.samples_per_pixel = 5;
     cam.max_depth         = 50;
     cam.background        = color(0.7, 0.8, 1.0);
 
